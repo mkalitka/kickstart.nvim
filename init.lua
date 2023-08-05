@@ -130,11 +130,11 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    -- Catppuccin theme
+    'catppuccin/nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
 
@@ -246,6 +246,16 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Set cursorline
+vim.o.cursorline = true
+
+-- Change tabs to spaces
+vim.o.expandtab = true
+
+-- Set shiftwidth and tabstop to 4
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
 
 -- [[ Basic Keymaps ]]
 
@@ -515,6 +525,12 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- Reset cursor after exit autocmd
+vim.api.nvim_create_autocmd("VimLeave", {
+  command = "set guicursor= | call chansend(v:stderr, \"\x1b[ q\")",
+  pattern = "*",
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
